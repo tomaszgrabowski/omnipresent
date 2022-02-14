@@ -65,11 +65,9 @@ const getCountryConfig = (countryName: string): string[] => {
   const config = countriesConfig.find(
     (country) => country.name === countryName
   );
-  // console.log(config);
   const formItems: string[] = [];
   if (config) {
     Object.keys(config).map((item) => {
-      console.log(item, config[item as keyof FormConfig]);
       const shouldRenderFormItem = config[item as keyof FormConfig];
       if (shouldRenderFormItem) {
         formItems.push(item);

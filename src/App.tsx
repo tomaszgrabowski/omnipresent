@@ -51,12 +51,10 @@ function App() {
                 ))}
               </Select>
             </FormControl>
-            <ul className={styles.ul}>
-              {country &&
-                getCountryConfig(country).map((item) => (
-                  <FormItem name={item.name} value={item.value} />
-                ))}
-            </ul>
+            {country &&
+              getCountryConfig(country).map((item) => (
+                <FormItem name={item.name} value={item.value} />
+              ))}
           </form>
         </Paper>
       </Box>
@@ -93,9 +91,5 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: "50px",
-  },
-  ul: {
-    margin: 0,
-    padding: 0,
   },
 });

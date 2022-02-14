@@ -18,12 +18,31 @@ const camelToLabel = (text: string) =>
 
 const getFormItem = (data: FormItemProps) => {
   if (typeof data.value === "boolean") {
-    return <TextField label={camelToLabel(data.name)} variant="standard" />;
+    return (
+      <TextField
+        label={camelToLabel(data.name)}
+        variant="outlined"
+        sx={{ margin: "5px 0" }}
+      />
+    );
   }
   if (typeof data.value === "string") {
     return;
   }
   if (typeof data.value === "object") {
-    return <>object</>;
+    return (
+      <>
+        <TextField
+          label={camelToLabel(data.name + "From")}
+          variant="outlined"
+          sx={{ margin: "5px 0" }}
+        />
+        <TextField
+          label={camelToLabel(data.name + "To")}
+          variant="outlined"
+          sx={{ margin: "5px 0" }}
+        />
+      </>
+    );
   }
 };

@@ -1,12 +1,19 @@
 export const countries: string[] = ["Default", "Spain", "Ghana", "Brazil"]; //here we should have all supported countries
 
+export type FormConfigAllowedType =
+  | boolean
+  | { min: number | undefined; max: number | undefined }
+  | string;
+
 export type FormConfig = {
   name: string;
   countryOfWork: boolean;
   firstName: boolean;
   lastName: boolean;
   dateOfBirth: boolean;
-  holidayAllowance: boolean | { min: number; max: number };
+  holidayAllowance:
+    | boolean
+    | { min: number | undefined; max: number | undefined };
   martialStatus: boolean;
   socialInsuranceNumber: boolean;
   workingHours: boolean;

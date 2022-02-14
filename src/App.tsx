@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Container,
   FormControl,
   InputLabel,
   MenuItem,
@@ -11,7 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { countries, countriesConfig, FormConfig } from "./form.config";
+import {
+  countries,
+  countriesConfig,
+  FormConfig,
+  FormConfigAllowedType,
+} from "./form.config";
+import FormItem from "./FormItem";
 
 function App() {
   const styles = useStyles();
@@ -28,13 +33,13 @@ function App() {
           <form action="">
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
-                Pick country
+                pick country
               </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={country}
-                label="Pick country"
+                label="pick country"
                 onChange={(event: SelectChangeEvent) =>
                   setCountry(event.target.value)
                 }
@@ -46,10 +51,10 @@ function App() {
                 ))}
               </Select>
             </FormControl>
-            <ul>
+            <ul className={styles.ul}>
               {country &&
                 getCountryConfig(country).map((item) => (
-                  <li key={item}>{item}</li>
+                  <FormItem name={item.name} value={item.value} />
                 ))}
             </ul>
           </form>
@@ -61,16 +66,16 @@ function App() {
 
 export default App;
 
-const getCountryConfig = (countryName: string): string[] => {
+const getCountryConfig = (countryName: string) => {
   const config = countriesConfig.find(
     (country) => country.name === countryName
   );
-  const formItems: string[] = [];
+  const formItems: { name: string; value: FormConfigAllowedType }[] = [];
   if (config) {
     Object.keys(config).map((item) => {
       const shouldRenderFormItem = config[item as keyof FormConfig];
       if (shouldRenderFormItem) {
-        formItems.push(item);
+        formItems.push({ name: item, value: shouldRenderFormItem });
       }
     });
   }
@@ -79,7 +84,7 @@ const getCountryConfig = (countryName: string): string[] => {
 
 const useStyles = makeStyles({
   container: {
-    width: "100vw",
+    width: "100%",
     backgroundColor: "lightgray",
     height: "100vh",
     display: "flex",
@@ -88,5 +93,9 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: "50px",
+  },
+  ul: {
+    margin: 0,
+    padding: 0,
   },
 });

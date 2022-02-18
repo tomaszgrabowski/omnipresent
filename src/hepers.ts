@@ -24,3 +24,20 @@ export const getCountryConfig = (countryName: string) => {
 
 export const camelToLabel = (text: string) =>
   text.replace(/([a-z])([A-Z])/g, "$1 $2").toLocaleLowerCase();
+
+export const getValidationRules = (
+  rules: { min: number | undefined; max: number | undefined } | boolean | string
+) => {
+  let _rules: any = {
+    required: { value: true, message: "This field is required" },
+  };
+  if (typeof rules === "object") {
+    if (rules.min) {
+      _rules = { ..._rules, min: { value: rules.min, message: "Too low" } };
+    }
+    if (rules.max) {
+      _rules = { ..._rules, max: { value: rules.max, message: "Too high" } };
+    }
+  }
+  return _rules;
+};

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { FormControl } from "@mui/material";
-import { camelToLabel } from "../hepers";
+import { camelToLabel, getValidationRules } from "../hepers";
 import { makeStyles } from "@mui/styles";
 import {
   FormState,
@@ -27,25 +27,6 @@ const EmployeeForm: FC<EmployeeFormProps> = ({
   submit,
 }) => {
   const styles = useStyles();
-  const getValidationRules = (
-    rules:
-      | { min: number | undefined; max: number | undefined }
-      | boolean
-      | string
-  ) => {
-    let _rules: any = {
-      required: { value: true, message: "This field is required" },
-    };
-    if (typeof rules === "object") {
-      if (rules.min) {
-        _rules = { ..._rules, min: { value: rules.min, message: "Too low" } };
-      }
-      if (rules.max) {
-        _rules = { ..._rules, max: { value: rules.max, message: "Too high" } };
-      }
-    }
-    return _rules;
-  };
 
   return (
     <form onSubmit={handleSubmit(submit)}>
